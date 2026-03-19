@@ -308,18 +308,24 @@ html, body, #root {
     padding: 15px 15px 75px 15px !important;
   }
 
-  /* Windows become full width minus margin, ignoring hardcoded transforms */
+  /* Windows become full width on mobile — JS skips transform so CSS wins */
   .ubuntu-window {
     width: 95vw !important;
-    height: 80vh !important;
-    transform: translate(2.5vw, 5vh) !important;
+    height: 78vh !important;
+    /* Center it: top-left corner at 2.5% from left, 9% from top */
+    left: 2.5vw !important;
+    top: 9vh !important;
+    transform: none !important;
+    position: fixed !important;
   }
   
   /* Reset maximized specifically for mobile */
   .ubuntu-window.maximized {
     width: 100vw !important;
     height: calc(100vh - 28px) !important;
-    transform: translate(0, 0) !important;
+    left: 0 !important;
+    top: 28px !important;
+    transform: none !important;
     border-radius: 0;
   }
 

@@ -192,29 +192,33 @@ function Window({ id, title, onClose, isActive, onFocus, isMaximized, onToggleMa
   const [pos, setPos] = useState(defaultPos)
   const [isDragging, setIsDragging] = useState(false)
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
+  const isMobile = window.innerWidth <= 768
 
   const handlePointerDown = (e) => {
     onFocus()
-    if (isMaximized) return
+    if (isMaximized || isMobile) return
     e.target.setPointerCapture(e.pointerId)
     setIsDragging(true)
     setDragOffset({ x: e.clientX - pos.x, y: e.clientY - pos.y })
   }
 
   const handlePointerMove = (e) => {
-    if (isDragging && !isMaximized) {
+    if (isDragging && !isMaximized && !isMobile) {
       setPos({ x: e.clientX - dragOffset.x, y: e.clientY - dragOffset.y })
     }
   }
 
   const handlePointerUp = (e) => {
-    if (isMaximized) return
+    if (isMaximized || isMobile) return
     e.target.releasePointerCapture(e.pointerId)
     setIsDragging(false)
   }
 
   const style = isMaximized ? {
     zIndex: isActive ? 100 : 50, transition: 'all 0.15s ease-out'
+  } : isMobile ? {
+    // On mobile: let CSS classes handle centering, no JS transform
+    zIndex: isActive ? 100 : 50,
   } : {
     transform: `translate(${pos.x}px, ${pos.y}px)`,
     zIndex: isActive ? 100 : 50, transition: 'transform 0.15s, width 0.15s, height 0.15s',
@@ -261,9 +265,9 @@ export default function Desktop({ onExit }) {
   const [time, setTime] = useState(new Date())
 
   // App States
-  const [openApps, setOpenApps] = useState({ projects: false, resume: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false })
+  const [openApps, setOpenApps] = useState({ projects: false, resume: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false })
   const [activeApp, setActiveApp] = useState(null)
-  const [maximizedApps, setMaximizedApps] = useState({ projects: false, resume: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false })
+  const [maximizedApps, setMaximizedApps] = useState({ projects: false, resume: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false })
   const [linkedinConfirmed, setLinkedinConfirmed] = useState(false)
   const [githubConfirmed, setGithubConfirmed] = useState(false)
   const [whatsappConfirmed, setWhatsappConfirmed] = useState(false)
@@ -395,6 +399,11 @@ export default function Desktop({ onExit }) {
             {openApps.whatsapp && <div className="dock-active-dot" />}
             <img src="/icons/whatsapp.png" alt="WhatsApp" style={{ width: '28px', height: '28px', objectFit: 'contain', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))' }} />
           </div>
+
+          <div className="dock-icon" onClick={() => toggleApp('arnabbot')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'arnabbot') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Arnab Bot">
+            {openApps.arnabbot && <div className="dock-active-dot" />}
+            <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>🤖</span>
+          </div>
         </div>
 
         {/* Desktop Workspace */}
@@ -480,6 +489,15 @@ export default function Desktop({ onExit }) {
           }}>
             <img src="/icons/whatsapp.png" alt="WhatsApp" style={{ width: '48px', height: '48px', objectFit: 'contain', filter: 'drop-shadow(1px 2px 4px rgba(0,0,0,0.6))' }} />
             <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>WhatsApp</span>
+          </div>
+
+          <div className="desktop-icon" onClick={() => toggleApp('arnabbot')} style={{
+            width: '85px', height: '85px', display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            borderRadius: '8px', padding: '5px'
+          }}>
+            <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>🤖</span>
+            <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Arnab Bot</span>
           </div>
 
           {/* Render Active Windows */}
@@ -659,6 +677,32 @@ export default function Desktop({ onExit }) {
                       <button onClick={() => toggleApp('whatsapp')} style={{ padding: '8px 20px', borderRadius: '8px', border: '1px solid #2a3942', background: '#202c33', color: '#8696a0', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>Close</button>
                     </div>
                   )}
+                </div>
+              </div>
+            </Window>
+          )}
+
+          {openApps.arnabbot && (
+            <Window
+              id="arnabbot" title="🤖 Arnab Bot"
+              onClose={() => toggleApp('arnabbot')}
+              isActive={activeApp === 'arnabbot'} onFocus={() => focusApp('arnabbot')}
+              isMaximized={maximizedApps.arnabbot} onToggleMaximize={() => toggleMaximize('arnabbot')}
+              defaultPos={{ x: 300, y: 120 }}
+            >
+              <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0d1117', gap: '20px', padding: '30px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', inset: 0, opacity: 0.05, backgroundImage: 'radial-gradient(#a78bfa 1px, transparent 0)', backgroundSize: '28px 28px' }} />
+                <div style={{ zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '18px' }}>
+                  <div style={{ width: '80px', height: '80px', borderRadius: '20px', background: 'linear-gradient(135deg, #7c3aed, #6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '44px', boxShadow: '0 8px 30px rgba(124,58,237,0.5)' }}>🤖</div>
+                  <div>
+                    <div style={{ fontSize: '22px', fontWeight: '800', color: '#e2e8f0', marginBottom: '8px' }}>Arnab Bot</div>
+                    <div style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.7', maxWidth: '280px' }}>Your AI-powered assistant is being set up.<br /><span style={{ color: '#a78bfa', fontWeight: '600' }}>Check back soon!</span></div>
+                  </div>
+                  <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+                    {['thinking…', 'loading…', 'soon™'].map((t, i) => (
+                      <span key={i} style={{ fontSize: '11px', background: 'rgba(124,58,237,0.2)', border: '1px solid rgba(124,58,237,0.4)', color: '#a78bfa', padding: '4px 10px', borderRadius: '20px' }}>{t}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </Window>
