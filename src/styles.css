@@ -181,3 +181,73 @@ html, body, #root {
   font-size: 0.8rem;
   caret-color: #a78bfa;
 }
+/* ─── Orientation Prompt ────────────────────────── */
+.orientation-prompt {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+}
+
+.orientation-icon {
+  font-size: 4rem;
+  margin-bottom: 24px;
+  animation: rotatePhone 2s infinite ease-in-out;
+}
+
+@keyframes rotatePhone {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(90deg); }
+}
+
+.orientation-prompt h2 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #fff 30%, #a78bfa 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.orientation-prompt p {
+  font-size: 0.9rem;
+  color: #a1a1aa;
+  margin-bottom: 32px;
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+.continue-btn {
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: #a78bfa;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.continue-btn:hover {
+  background: rgba(167, 139, 250, 0.2);
+  border-color: #a78bfa;
+}
+
+/* Hide orientation prompt if not on mobile portrait */
+@media (min-width: 768px) {
+  .orientation-prompt { display: none; }
+}
+
+@media (orientation: landscape) {
+  .orientation-prompt { display: none; }
+}

@@ -138,9 +138,40 @@ function useBackCardTexture(photoSrc) {
 // ── App ───────────────────────────────────────────────────────────────────────
 import Desktop from './Desktop'
 
+function MobileOrientationPrompt({ onContinue }) {
+  return (
+    <div className="orientation-prompt">
+      <div className="orientation-icon">📱</div>
+      <h2>Rotate your device</h2>
+      <p>Please switch to landscape mode for the best experience with the 3D lanyard and terminal.</p>
+      <button className="continue-btn" onClick={onContinue}>
+        CONTINUE ANYWAY
+      </button>
+    </div>
+  )
+}
+
 export default function App() {
   const [isFlipped, setIsFlipped] = useState(false)
   const [desktopMode, setDesktopMode] = useState(false)
+  const [showOrientationPrompt, setShowOrientationPrompt] = useState(false)
+  const [ignoredPrompt, setIgnoredPrompt] = useState(false)
+
+  useEffect(() => {
+    const checkOrientation = () => {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      const isPortrait = window.innerHeight > window.innerWidth
+      setShowOrientationPrompt(isMobile && isPortrait && !ignoredPrompt)
+    }
+
+    checkOrientation()
+    window.addEventListener('resize', checkOrientation)
+    return () => window.removeEventListener('resize', checkOrientation)
+  }, [ignoredPrompt])
+
+  if (showOrientationPrompt) {
+    return <MobileOrientationPrompt onContinue={() => setIgnoredPrompt(true)} />
+  }
 
   if (desktopMode) {
     return <Desktop onExit={() => setDesktopMode(false)} />
