@@ -6,6 +6,7 @@ import Calculator from './Calculator'
 import Camera from './Camera'
 import ArnabBot from './ArnabBot'
 import ContactApp from './ContactApp'
+import CertificationsApp from './CertificationsApp'
 
 // --- Projects Data ---
 const PROJECTS = [
@@ -267,9 +268,9 @@ export default function Desktop({ onExit }) {
   const [time, setTime] = useState(new Date())
 
   // App States
-  const [openApps, setOpenApps] = useState({ projects: false, resume: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
+  const [openApps, setOpenApps] = useState({ projects: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
   const [activeApp, setActiveApp] = useState(null)
-  const [maximizedApps, setMaximizedApps] = useState({ projects: false, resume: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
+  const [maximizedApps, setMaximizedApps] = useState({ projects: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
   const [linkedinConfirmed, setLinkedinConfirmed] = useState(false)
   const [githubConfirmed, setGithubConfirmed] = useState(false)
   const [whatsappConfirmed, setWhatsappConfirmed] = useState(false)
@@ -367,6 +368,11 @@ export default function Desktop({ onExit }) {
             <span style={{ fontSize: '24px' }}>📄</span>
           </div>
 
+          <div className="dock-icon" onClick={() => toggleApp('certifications')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'certifications') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Certifications">
+            {openApps.certifications && <div className="dock-active-dot" />}
+            <span style={{ fontSize: '24px' }}>🏆</span>
+          </div>
+
           <div className="dock-icon" onClick={() => toggleApp('terminal')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'terminal') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Terminal">
             {openApps.terminal && <div className="dock-active-dot" />}
             <img src={desktopIcon} style={{ width: '28px', height: '28px', filter: 'drop-shadow(1px 1px 2px #000)' }} alt="terminal" />
@@ -433,6 +439,15 @@ export default function Desktop({ onExit }) {
           }}>
             <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>📄</span>
             <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Resume.pdf</span>
+          </div>
+
+          <div className="desktop-icon" onClick={() => toggleApp('certifications')} style={{
+            width: '85px', height: '85px', display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            borderRadius: '8px', padding: '5px'
+          }}>
+            <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>🏆</span>
+            <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Certifications</span>
           </div>
 
           <div className="desktop-icon" onClick={() => toggleApp('terminal')} style={{
@@ -538,6 +553,18 @@ export default function Desktop({ onExit }) {
               defaultPos={{ x: 200, y: 120 }}
             >
               <iframe src="/Arnab_Das_CV.pdf" style={{ width: '100%', height: '100%', border: 'none' }} title="Resume PDF" />
+            </Window>
+          )}
+
+          {openApps.certifications && (
+            <Window
+              id="certifications" title="Certifications"
+              onClose={() => toggleApp('certifications')}
+              isActive={activeApp === 'certifications'} onFocus={() => focusApp('certifications')}
+              isMaximized={maximizedApps.certifications} onToggleMaximize={() => toggleMaximize('certifications')}
+              defaultPos={{ x: 220, y: 140 }}
+            >
+              <CertificationsApp />
             </Window>
           )}
 
