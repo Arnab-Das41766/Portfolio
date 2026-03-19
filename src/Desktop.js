@@ -573,7 +573,7 @@ export default function Desktop({ onExit }) {
               <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0d1117', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', inset: 0, opacity: 0.07, backgroundImage: 'radial-gradient(#fff 1px, transparent 0)', backgroundSize: '24px 24px' }} />
                 <div style={{ zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', padding: '30px', textAlign: 'center' }}>
-                  <div style={{ width: '72px', height: '72px', backgroundColor: '#21262d', borderRadius: '50%', border: '2px solid #30363d', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '40px', boxShadow: '0 8px 30px rgba(0,0,0,0.5)' }}>🐱</div>
+                  <div style={{ width: '72px', height: '72px', backgroundColor: '#21262d', borderRadius: '50%', border: '2px solid #30363d', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 30px rgba(0,0,0,0.5)', padding: '12px' }}><img src="/icons/github.png" alt="GitHub" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} /></div>
                   <div>
                     <div style={{ fontSize: '22px', fontWeight: '800', color: '#e6edf3', marginBottom: '6px' }}>GitHub</div>
                     <div style={{ fontSize: '13px', color: '#8b949e', lineHeight: '1.6' }}>Open <span style={{ color: '#58a6ff', fontWeight: '600' }}>Arnab-Das41766</span>'s GitHub<br />homepage in a new tab.</div>
@@ -608,7 +608,7 @@ export default function Desktop({ onExit }) {
                 <div style={{ position: 'absolute', inset: 0, opacity: 0.04, backgroundImage: 'repeating-linear-gradient(0deg, #25d366 0, #25d366 1px, transparent 0, transparent 28px), repeating-linear-gradient(90deg, #25d366 0, #25d366 1px, transparent 0, transparent 28px)', backgroundSize: '28px 28px' }} />
                 <div style={{ zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', padding: '30px', textAlign: 'center' }}>
                   {/* WhatsApp logo circle */}
-                  <div style={{ width: '72px', height: '72px', backgroundColor: '#25d366', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '40px', boxShadow: '0 8px 30px rgba(37,211,102,0.35)' }}>💬</div>
+                  <div style={{ width: '72px', height: '72px', backgroundColor: '#25d366', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 30px rgba(37,211,102,0.35)', padding: '12px' }}><img src="/icons/whatsapp.png" alt="WhatsApp" style={{ width: '100%', height: '100%', objectFit: 'contain' }} /></div>
                   <div>
                     <div style={{ fontSize: '22px', fontWeight: '800', color: '#e9edef', marginBottom: '6px' }}>WhatsApp</div>
                     <div style={{ fontSize: '13px', color: '#8696a0', lineHeight: '1.6' }}>Start a chat with <span style={{ color: '#25d366', fontWeight: '600' }}>Arnab Das</span><br />on WhatsApp in a new tab.</div>
