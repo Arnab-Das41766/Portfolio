@@ -153,7 +153,7 @@ function MobileOrientationPrompt({ onContinue }) {
 
 export default function App() {
   const [isFlipped, setIsFlipped] = useState(false)
-  const [desktopMode, setDesktopMode] = useState(false)
+  const [desktopMode, setDesktopMode] = useState(true)
   const [showOrientationPrompt, setShowOrientationPrompt] = useState(false)
   const [ignoredPrompt, setIgnoredPrompt] = useState(false)
 

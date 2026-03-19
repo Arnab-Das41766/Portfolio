@@ -352,7 +352,7 @@ export default function Desktop({ onExit }) {
 
           <div className="dock-icon" onClick={() => toggleApp('music')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'music') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Spotify Music">
             {openApps.music && <div className="dock-active-dot" />}
-            <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>🎵</span>
+            <img src="/icons/spotify.png" alt="Spotify" style={{ width: '28px', height: '28px', objectFit: 'contain', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))' }} />
           </div>
 
           <div className="dock-icon" onClick={() => toggleApp('calculator')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'calculator') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Calculator">
@@ -417,7 +417,7 @@ export default function Desktop({ onExit }) {
             alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
             borderRadius: '8px', padding: '5px'
           }}>
-            <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>🎵</span>
+            <img src="/icons/spotify.png" alt="Spotify" style={{ width: '48px', height: '48px', objectFit: 'contain', filter: 'drop-shadow(1px 2px 4px rgba(0,0,0,0.6))' }} />
             <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Spotify</span>
           </div>
 
