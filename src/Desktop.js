@@ -7,6 +7,7 @@ import Camera from './Camera'
 import ArnabBot from './ArnabBot'
 import ContactApp from './ContactApp'
 import CertificationsApp from './CertificationsApp'
+import SnakeGame from './SnakeGame'
 
 // --- Projects Data ---
 const PROJECTS = [
@@ -268,9 +269,9 @@ export default function Desktop({ onExit }) {
   const [time, setTime] = useState(new Date())
 
   // App States
-  const [openApps, setOpenApps] = useState({ projects: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
+  const [openApps, setOpenApps] = useState({ projects: false, resume: false, certifications: false, game: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
   const [activeApp, setActiveApp] = useState(null)
-  const [maximizedApps, setMaximizedApps] = useState({ projects: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
+  const [maximizedApps, setMaximizedApps] = useState({ projects: false, resume: false, certifications: false, game: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
   const [linkedinConfirmed, setLinkedinConfirmed] = useState(false)
   const [githubConfirmed, setGithubConfirmed] = useState(false)
   const [whatsappConfirmed, setWhatsappConfirmed] = useState(false)
@@ -376,6 +377,11 @@ export default function Desktop({ onExit }) {
             <span style={{ fontSize: '24px' }}>🏆</span>
           </div>
 
+          <div className="dock-icon" onClick={() => toggleApp('game')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'game') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Snake Game">
+            {openApps.game && <div className="dock-active-dot" />}
+            <span style={{ fontSize: '24px' }}>🐍</span>
+          </div>
+
           <div className="dock-icon" onClick={() => toggleApp('terminal')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'terminal') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Terminal">
             {openApps.terminal && <div className="dock-active-dot" />}
             <img src={desktopIcon} style={{ width: '28px', height: '28px', filter: 'drop-shadow(1px 1px 2px #000)' }} alt="terminal" />
@@ -451,6 +457,15 @@ export default function Desktop({ onExit }) {
           }}>
             <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>🏆</span>
             <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Certifications</span>
+          </div>
+
+          <div className="desktop-icon" onClick={() => toggleApp('game')} style={{
+            width: '85px', height: '85px', display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            borderRadius: '8px', padding: '5px'
+          }}>
+            <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>🐍</span>
+            <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Snake Game</span>
           </div>
 
           <div className="desktop-icon" onClick={() => toggleApp('terminal')} style={{
@@ -568,6 +583,18 @@ export default function Desktop({ onExit }) {
               defaultPos={{ x: 220, y: 140 }}
             >
               <CertificationsApp />
+            </Window>
+          )}
+
+          {openApps.game && (
+            <Window
+              id="game" title="🐍 Snake Game"
+              onClose={() => toggleApp('game')}
+              isActive={activeApp === 'game'} onFocus={() => focusApp('game')}
+              isMaximized={maximizedApps.game} onToggleMaximize={() => toggleMaximize('game')}
+              defaultPos={{ x: 240, y: 160 }}
+            >
+              <SnakeGame />
             </Window>
           )}
 
