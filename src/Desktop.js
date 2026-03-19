@@ -16,7 +16,7 @@ const PROJECTS = [
     tech: ['React', 'FastAPI', 'Python', 'D3.js', 'DeepSeek API'],
     description: 'A real-time geopolitical and trade risk intelligence platform powered by AI. Visualizes supply chain exposure, sanctions risk, and multi-country trade dependencies on interactive maps.',
     status: 'Deployed',
-    github: 'https://github.com/Arnab-Das41766',
+    github: 'https://github.com/Arnab-Das41766/RiskAtlas',
   },
   {
     id: 'encrive',
@@ -27,7 +27,7 @@ const PROJECTS = [
     tech: ['React', 'AES-256-GCM', 'Web Crypto API', 'Argon2id', 'Supabase'],
     description: 'End-to-end encrypted cloud storage where even the server never sees your data. Files are encrypted client-side before upload, using zero-knowledge architecture.',
     status: 'In Progress',
-    github: 'https://github.com/Arnab-Das41766',
+    github: 'https://github.com/Arnab-Das41766/Encrive',
   },
   {
     id: 'autobusbook',
@@ -38,7 +38,7 @@ const PROJECTS = [
     tech: ['React', 'Flask', 'SQLite', 'Supabase', 'Socket.IO'],
     description: 'A full-stack intercity bus booking system with real-time seat selection, dynamic pricing, operator dashboards, and live trip tracking via geolocation.',
     status: 'Deployed',
-    github: 'https://github.com/Arnab-Das41766',
+    github: 'https://github.com/Arnab-Das41766/AutoBusBook',
   },
   {
     id: 'stockbook',
@@ -49,7 +49,7 @@ const PROJECTS = [
     tech: ['React', 'Python', 'Recharts', 'Groq API', 'Qwen 2.5'],
     description: 'A smart portfolio tracker with AI-generated market commentary, multi-stock watchlists, live price feed integration, and predictive sentiment analysis.',
     status: 'In Progress',
-    github: 'https://github.com/Arnab-Das41766',
+    github: 'https://github.com/Arnab-Das41766/Stockbook_v2',
   },
   {
     id: 'codestrikers',
@@ -60,7 +60,7 @@ const PROJECTS = [
     tech: ['React', 'Flask-SocketIO', 'Gevent', 'SQLite'],
     description: 'A real-time competitive coding quiz platform where players duel on DSA problems. Features rooms, leaderboards, timed rounds, and instant result feedback.',
     status: 'Deployed',
-    github: 'https://github.com/Arnab-Das41766',
+    github: 'https://github.com/Arnab-Das41766/Code-Strikers',
   },
   {
     id: 'redteamlabs',
@@ -71,7 +71,29 @@ const PROJECTS = [
     tech: ['Python', 'C2 Techniques', 'Malware Dev', 'Pentesting'],
     description: 'A curated collection of offensive security proof-of-concept tools — covering C2 frameworks, phishing kits, rat/spyware prototypes, and social engineering simulations. For educational & CTF use.',
     status: 'Private',
-    github: 'https://github.com/Arnab-Das41766',
+    github: 'https://github.com/Arnab-Das41766/Red-Team-Labs',
+  },
+  {
+    id: 'beatclaude',
+    name: 'Beat-Claude',
+    icon: '🎶',
+    color: '#1dd1a1',
+    tagline: 'AI beat generator',
+    tech: ['React', 'Groq API', 'AI'],
+    description: 'A unified applications interacting with the Groq API to generate dynamic beats and musical exam patterns using LLMs.',
+    status: 'Deployed',
+    github: 'https://github.com/Arnab-Das41766/Beat-Claude',
+  },
+  {
+    id: 'riskyurl',
+    name: 'RiskyURL',
+    icon: '🔗',
+    color: '#e74c3c',
+    tagline: 'Malicious URL detector',
+    tech: ['Python', 'Machine Learning', 'Flask'],
+    description: 'A machine learning powered platform designed to detect and flag malicious URLs preventing users from falling victim to phishing and scams.',
+    status: 'Deployed',
+    github: 'https://github.com/Arnab-Das41766/RiskyURL',
   },
 ]
 
