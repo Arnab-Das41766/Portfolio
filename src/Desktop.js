@@ -267,6 +267,7 @@ export default function Desktop({ onExit }) {
   const [linkedinConfirmed, setLinkedinConfirmed] = useState(false)
   const [githubConfirmed, setGithubConfirmed] = useState(false)
   const [whatsappConfirmed, setWhatsappConfirmed] = useState(false)
+  const [showScrollHint, setShowScrollHint] = useState(false)
 
   const toggleApp = (app) => {
     setOpenApps(prev => {
@@ -283,6 +284,15 @@ export default function Desktop({ onExit }) {
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000)
     return () => clearInterval(timer)
+  }, [])
+
+  useEffect(() => {
+    // Check if it's a touch device
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      setShowScrollHint(true)
+      const hintTimer = setTimeout(() => setShowScrollHint(false), 5000)
+      return () => clearTimeout(hintTimer)
+    }
   }, [])
 
   return (
@@ -306,6 +316,12 @@ export default function Desktop({ onExit }) {
         color: '#fff',
         zIndex: 999999
       }}>
+        {showScrollHint && (
+          <div className="scroll-hint-popup">
+            <span style={{ fontSize: '18px' }}>👆</span> Two-finger scroll to view all apps
+          </div>
+        )}
+
         {/* Top Navbar */}
         <div style={{
           height: '28px', backgroundColor: 'rgba(0,0,0,0.85)',

@@ -328,3 +328,41 @@ html, body, #root {
     font-size: 0.9em;
   }
 }
+
+/* Make desktop scrollable on mobile */
+.ubuntu-desktop {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  touch-action: pan-y !important;
+}
+
+/* Two-finger scroll hint animation */
+@keyframes fadeOutHint {
+  0% { opacity: 0; transform: translateY(20px) translateX(-50%); }
+  10% { opacity: 1; transform: translateY(0) translateX(-50%); }
+  90% { opacity: 1; transform: translateY(0) translateX(-50%); }
+  100% { opacity: 0; transform: translateY(20px) translateX(-50%); }
+}
+
+.scroll-hint-popup {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 9999;
+  pointer-events: none;
+  animation: fadeOutHint 5s ease-in-out forwards;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
