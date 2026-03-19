@@ -4,6 +4,7 @@ import Terminal from './Terminal'
 import MusicPlayer from './MusicPlayer'
 import Calculator from './Calculator'
 import Camera from './Camera'
+import ArnabBot from './ArnabBot'
 
 // --- Projects Data ---
 const PROJECTS = [
@@ -690,21 +691,7 @@ export default function Desktop({ onExit }) {
               isMaximized={maximizedApps.arnabbot} onToggleMaximize={() => toggleMaximize('arnabbot')}
               defaultPos={{ x: 300, y: 120 }}
             >
-              <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0d1117', gap: '20px', padding: '30px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', inset: 0, opacity: 0.05, backgroundImage: 'radial-gradient(#a78bfa 1px, transparent 0)', backgroundSize: '28px 28px' }} />
-                <div style={{ zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '18px' }}>
-                  <div style={{ width: '80px', height: '80px', borderRadius: '20px', background: 'linear-gradient(135deg, #7c3aed, #6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '44px', boxShadow: '0 8px 30px rgba(124,58,237,0.5)' }}>🤖</div>
-                  <div>
-                    <div style={{ fontSize: '22px', fontWeight: '800', color: '#e2e8f0', marginBottom: '8px' }}>Arnab Bot</div>
-                    <div style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.7', maxWidth: '280px' }}>Your AI-powered assistant is being set up.<br /><span style={{ color: '#a78bfa', fontWeight: '600' }}>Check back soon!</span></div>
-                  </div>
-                  <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
-                    {['thinking…', 'loading…', 'soon™'].map((t, i) => (
-                      <span key={i} style={{ fontSize: '11px', background: 'rgba(124,58,237,0.2)', border: '1px solid rgba(124,58,237,0.4)', color: '#a78bfa', padding: '4px 10px', borderRadius: '20px' }}>{t}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <ArnabBot />
             </Window>
           )}
 
