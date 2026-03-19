@@ -5,6 +5,7 @@ import MusicPlayer from './MusicPlayer'
 import Calculator from './Calculator'
 import Camera from './Camera'
 import ArnabBot from './ArnabBot'
+import ContactApp from './ContactApp'
 
 // --- Projects Data ---
 const PROJECTS = [
@@ -266,9 +267,9 @@ export default function Desktop({ onExit }) {
   const [time, setTime] = useState(new Date())
 
   // App States
-  const [openApps, setOpenApps] = useState({ projects: false, resume: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false })
+  const [openApps, setOpenApps] = useState({ projects: false, resume: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
   const [activeApp, setActiveApp] = useState(null)
-  const [maximizedApps, setMaximizedApps] = useState({ projects: false, resume: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false })
+  const [maximizedApps, setMaximizedApps] = useState({ projects: false, resume: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
   const [linkedinConfirmed, setLinkedinConfirmed] = useState(false)
   const [githubConfirmed, setGithubConfirmed] = useState(false)
   const [whatsappConfirmed, setWhatsappConfirmed] = useState(false)
@@ -405,6 +406,11 @@ export default function Desktop({ onExit }) {
             {openApps.arnabbot && <div className="dock-active-dot" />}
             <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>🤖</span>
           </div>
+
+          <div className="dock-icon" onClick={() => toggleApp('contact')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'contact') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Contact Arnab">
+            {openApps.contact && <div className="dock-active-dot" />}
+            <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>📬</span>
+          </div>
         </div>
 
         {/* Desktop Workspace */}
@@ -499,6 +505,15 @@ export default function Desktop({ onExit }) {
           }}>
             <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>🤖</span>
             <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Arnab Bot</span>
+          </div>
+
+          <div className="desktop-icon" onClick={() => toggleApp('contact')} style={{
+            width: '85px', height: '85px', display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            borderRadius: '8px', padding: '5px'
+          }}>
+            <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>📬</span>
+            <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Contact</span>
           </div>
 
           {/* Render Active Windows */}
@@ -692,6 +707,18 @@ export default function Desktop({ onExit }) {
               defaultPos={{ x: 300, y: 120 }}
             >
               <ArnabBot />
+            </Window>
+          )}
+
+          {openApps.contact && (
+            <Window
+              id="contact" title="📬 Contact Arnab"
+              onClose={() => toggleApp('contact')}
+              isActive={activeApp === 'contact'} onFocus={() => focusApp('contact')}
+              isMaximized={maximizedApps.contact} onToggleMaximize={() => toggleMaximize('contact')}
+              defaultPos={{ x: 320, y: 140 }}
+            >
+              <ContactApp />
             </Window>
           )}
 
