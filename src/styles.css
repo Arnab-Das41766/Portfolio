@@ -251,3 +251,80 @@ html, body, #root {
 @media (orientation: landscape) {
   .orientation-prompt { display: none; }
 }
+
+/* --- Ubuntu Desktop Mobile Responsiveness ------------------ */
+
+/* The main window container */
+.ubuntu-window {
+  position: absolute;
+  background-color: #202020;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #333;
+  width: 700px;
+  height: 480px;
+}
+
+/* The dock container */
+.ubuntu-dock {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  width: 56px;
+  height: calc(100vh - 28px);
+  flex-direction: column;
+  padding-top: 15px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  overflow-y: auto;
+}
+.ubuntu-dock::-webkit-scrollbar { width: 0; }
+
+/* The desktop workspace */
+.ubuntu-desktop {
+  padding: 15px 15px 15px 70px;
+}
+
+@media (max-width: 768px) {
+  /* Dock moves to the bottom */
+  .ubuntu-dock {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 60px;
+    flex-direction: row;
+    padding-top: 0;
+    padding-left: 10px;
+    border-right: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  /* Desktop padding shrinks to remove left dock space */
+  .ubuntu-desktop {
+    padding: 15px 15px 75px 15px !important;
+  }
+
+  /* Windows become full width minus margin, ignoring hardcoded transforms */
+  .ubuntu-window {
+    width: 95vw !important;
+    height: 80vh !important;
+    transform: translate(2.5vw, 5vh) !important;
+  }
+  
+  /* Reset maximized specifically for mobile */
+  .ubuntu-window.maximized {
+    width: 100vw !important;
+    height: calc(100vh - 28px) !important;
+    transform: translate(0, 0) !important;
+    border-radius: 0;
+  }
+
+  /* Make dialog text smaller on mobile */
+  .ubuntu-window > div:last-child {
+    font-size: 0.9em;
+  }
+}

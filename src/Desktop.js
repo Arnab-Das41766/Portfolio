@@ -192,18 +192,15 @@ function Window({ id, title, onClose, isActive, onFocus, isMaximized, onToggleMa
   }
 
   const style = isMaximized ? {
-    position: 'absolute', left: '56px', top: '28px', width: 'calc(100vw - 56px)', height: 'calc(100vh - 28px)',
-    backgroundColor: '#202020', display: 'flex', flexDirection: 'column',
-    overflow: 'hidden', border: 'none', zIndex: isActive ? 100 : 50, transition: 'all 0.15s ease-out'
+    zIndex: isActive ? 100 : 50, transition: 'all 0.15s ease-out'
   } : {
-    position: 'absolute', left: pos.x, top: pos.y, width: '700px', height: '480px',
-    backgroundColor: '#202020', borderRadius: '8px 8px 0 0', boxShadow: isActive ? '0 15px 50px rgba(0,0,0,0.8)' : '0 10px 30px rgba(0,0,0,0.5)',
-    display: 'flex', flexDirection: 'column', overflow: 'hidden', border: '1px solid #333',
-    zIndex: isActive ? 100 : 50, transition: 'width 0.15s, height 0.15s'
+    transform: `translate(${pos.x}px, ${pos.y}px)`,
+    zIndex: isActive ? 100 : 50, transition: 'transform 0.15s, width 0.15s, height 0.15s',
+    boxShadow: isActive ? '0 15px 50px rgba(0,0,0,0.8)' : '0 10px 30px rgba(0,0,0,0.5)',
   }
 
   return (
-    <div style={style} onPointerDownCapture={onFocus}>
+    <div className={isMaximized ? "ubuntu-window maximized" : "ubuntu-window"} style={style} onPointerDownCapture={onFocus}>
       <div
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -310,11 +307,10 @@ export default function Desktop({ onExit }) {
           </div>
         </div>
 
-        {/* Ubuntu Dock (Left Sidebar) */}
-        <div style={{
-          position: 'absolute', top: '28px', left: 0, width: '56px', height: 'calc(100vh - 28px)',
-          backgroundColor: 'rgba(0,0,0,0.6)', borderRight: '1px solid rgba(255,255,255,0.1)',
-          display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '15px', gap: '12px',
+        {/* Ubuntu Dock (Sidebar / Bottom bar on mobile) */}
+        <div className="ubuntu-dock" style={{
+          backgroundColor: 'rgba(0,0,0,0.6)',
+          display: 'flex', alignItems: 'center', gap: '12px',
           zIndex: 500, backdropFilter: 'blur(10px)', boxShadow: '2px 0 5px rgba(0,0,0,0.3)'
         }}>
           <div className="dock-icon" onClick={() => toggleApp('projects')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'projects') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Projects">
@@ -364,7 +360,7 @@ export default function Desktop({ onExit }) {
         </div>
 
         {/* Desktop Workspace */}
-        <div style={{ flex: 1, position: 'relative', padding: '15px 15px 15px 70px', display: 'flex', flexDirection: 'column', flexWrap: 'wrap', alignContent: 'flex-start', gap: '15px' }}>
+        <div className="ubuntu-desktop" style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', flexWrap: 'wrap', alignContent: 'flex-start', gap: '15px' }}>
 
           {/* Folders & Shortcuts */}
           <div className="desktop-icon" onClick={() => toggleApp('projects')} style={{
