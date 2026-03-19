@@ -311,8 +311,9 @@ export default function Desktop({ onExit }) {
         .dock-icon { transition: transform 0.2s; }
         .dock-icon:hover { transform: scale(1.1); background-color: rgba(255,255,255,0.2); }
         .dock-active-dot { width: 4px; height: 4px; background-color: #e95420; border-radius: 50%; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); }
-        .ubuntu-window { position: absolute; width: 600px; height: 400px; min-width: 300px; min-height: 200px; border-radius: 12px; overflow: hidden; display: 'flex'; flex-direction: 'column'; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .ubuntu-window.maximized { position: fixed; top: 28px; left: 0; right: 0; bottom: 0; width: 100% !important; height: calc(100vh - 28px) !important; border-radius: 0; margin: 0; transform: none !important; }
+        .ubuntu-dock { flex-direction: column !important; width: 70px !important; padding: 12px 8px !important; }
+        .ubuntu-window { position: absolute; width: 600px; height: 400px; min-width: 300px; min-height: 200px; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .ubuntu-window.maximized { position: fixed; top: 28px; left: 70px; right: 0; bottom: 0; width: calc(100% - 70px) !important; height: calc(100vh - 28px) !important; border-radius: 0; margin: 0; transform: none !important; }
       `}</style>
       <div style={{
         position: 'fixed', top: 0, left: 0,
