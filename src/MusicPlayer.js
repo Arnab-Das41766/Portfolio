@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
-import { TRACKS } from './Terminal'
+import { TRACKS } from './tracks'
 
 export default function MusicPlayer() {
   const [currentIdx, setCurrentIdx] = useState(0)
+  const [selectedIdx, setSelectedIdx] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -83,7 +84,19 @@ export default function MusicPlayer() {
     audioRef.current.volume = isMuted ? 0 : volume / 100
   }, [volume, isMuted])
 
-  const handlePlayPause = () => setIsPlaying(p => !p)
+  const handlePlayPause = useCallback(() => setIsPlaying(p => !p), [])
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
+      if (e.code === 'Space') {
+        e.preventDefault()
+        handlePlayPause()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [handlePlayPause])
 
   const handleNext = () => {
     setCurrentIdx(prev => getNextIdx(prev))
@@ -145,7 +158,14 @@ export default function MusicPlayer() {
   const volumeIcon = isMuted || volume === 0 ? '🔇' : volume < 40 ? '🔉' : '🔊'
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#121212', color: '#fff', fontFamily: '"Ubuntu", "Segoe UI", sans-serif' }}>
+    <>
+    <style>{`
+      @keyframes spinRecord {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+    `}</style>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#121212', color: '#fff', fontFamily: '"Ubuntu", "Segoe UI", sans-serif', userSelect: 'none' }}>
 
       {/* Top Main Section */}
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
@@ -167,10 +187,35 @@ export default function MusicPlayer() {
           </div>
         </div>
 
-        {/* Track List */}
-        <div style={{ flex: 1, padding: '20px 30px', background: 'linear-gradient(to bottom, #1db95420, #121212 40%)', overflowY: 'auto' }}>
-          <h2 style={{ fontSize: '32px', marginBottom: '5px', fontWeight: '800' }}>Vibes Collection</h2>
-          <div style={{ color: '#b3b3b3', fontSize: '13px', marginBottom: '30px' }}>Arnab Das • {TRACKS.length} songs</div>
+        {/* Track List Section */}
+        <div style={{ flex: 1, background: 'linear-gradient(to bottom, #1db95420, #121212 40%)', overflowY: 'auto' }}>
+          
+          {/* Spotify Hero Banner */}
+          <div style={{ padding: '30px', display: 'flex', alignItems: 'flex-end', gap: '20px', background: 'linear-gradient(transparent 0%, rgba(0,0,0,0.5) 100%)', marginBottom: '20px' }}>
+            <div style={{ width: '190px', height: '190px', background: 'linear-gradient(135deg, #1db954, #121212)', borderRadius: '8px', boxShadow: '0 8px 25px rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '72px' }}>
+              🎵
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '5px' }}>Playlist</div>
+              <h1 style={{ fontSize: '72px', margin: '0 0 10px 0', fontWeight: '900', letterSpacing: '-2px' }}>Vibes Collection</h1>
+              <div style={{ color: '#b3b3b3', fontSize: '14px' }}>
+                <span style={{ color: '#fff', fontWeight: 'bold' }}>Arnab Das</span> • {TRACKS.length} songs
+              </div>
+            </div>
+          </div>
+
+          {/* Big Play Button row */}
+          <div style={{ padding: '10px 30px', display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+             <button onClick={() => { if(!isPlaying) handlePlayPause() }} style={{ width: '56px', height: '56px', borderRadius: '50%', backgroundColor: '#1db954', color: '#000', border: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', fontSize: '24px', transition: 'transform 0.1s ease', boxShadow: '0 8px 8px rgba(0,0,0,0.3)' }}
+               onMouseDown={e => e.currentTarget.style.transform='scale(0.95)'}
+               onMouseUp={e => e.currentTarget.style.transform='scale(1)'}>
+               ▶
+             </button>
+             <div style={{ marginLeft: '25px', fontSize: '32px', color: '#1db954', cursor: 'pointer' }}>🤍</div>
+             <div style={{ marginLeft: '20px', fontSize: '24px', color: '#b3b3b3', cursor: 'pointer' }}>•••</div>
+          </div>
+
+          <div style={{ padding: '0 30px 30px 30px' }}>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', color: '#b3b3b3', fontSize: '14px' }}>
             <thead>
@@ -184,17 +229,20 @@ export default function MusicPlayer() {
               {TRACKS.map((track, i) => {
                 const info = parseTrackInfo(track.name)
                 const isActive = currentIdx === i
+                const isSelected = selectedIdx === i
                 return (
                   <tr
                     key={track.id}
-                    onClick={() => { setCurrentIdx(i); setIsPlaying(true) }}
+                    onClick={() => setSelectedIdx(i)}
+                    onDoubleClick={() => { setCurrentIdx(i); setIsPlaying(true) }}
                     style={{
                       cursor: 'pointer',
-                      backgroundColor: isActive ? '#ffffff1a' : 'transparent',
+                      backgroundColor: isActive ? '#ffffff1a' : (isSelected ? '#ffffff11' : 'transparent'),
                       transition: 'background-color 0.2s ease',
+                      userSelect: 'none'
                     }}
-                    onMouseEnter={e => { if (!isActive) e.currentTarget.style.backgroundColor = '#ffffff0a' }}
-                    onMouseLeave={e => { if (!isActive) e.currentTarget.style.backgroundColor = 'transparent' }}
+                    onMouseEnter={e => { if (!isActive && !isSelected) e.currentTarget.style.backgroundColor = '#ffffff0a' }}
+                    onMouseLeave={e => { if (!isActive && !isSelected) e.currentTarget.style.backgroundColor = 'transparent' }}
                   >
                     <td style={{ padding: '12px 10px', borderRadius: '8px 0 0 8px', color: isActive ? '#1db954' : '#b3b3b3' }}>
                       {isActive && isPlaying ? <span style={{ fontSize: '12px' }}>▶</span> : i + 1}
@@ -206,6 +254,7 @@ export default function MusicPlayer() {
               })}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
 
@@ -214,7 +263,12 @@ export default function MusicPlayer() {
 
         {/* Current Track Info */}
         <div style={{ display: 'flex', alignItems: 'center', width: '30%' }}>
-          <div style={{ width: '56px', height: '56px', backgroundColor: '#282828', marginRight: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '28px', borderRadius: '4px', boxShadow: '0 4px 10px rgba(0,0,0,0.3)', flexShrink: 0 }}>
+          <div style={{ 
+            width: '56px', height: '56px', background: `linear-gradient(135deg, hsl(${(currentIdx * 45) % 360}, 60%, 50%), #121212)`, 
+            marginRight: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '24px', 
+            borderRadius: isPlaying ? '50%' : '4px', boxShadow: '0 4px 10px rgba(0,0,0,0.3)', flexShrink: 0,
+            animation: isPlaying ? 'spinRecord 4s linear infinite' : 'none', transition: 'border-radius 0.3s ease'
+          }}>
             🎧
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -314,5 +368,6 @@ export default function MusicPlayer() {
         </div>
       </div>
     </div>
+    </>
   )
 }

@@ -1,12 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import desktopIcon from './image.png'
-
-export const TRACKS = [
-  { id: '1', name: 'Lofi Chill (Ek Tera Pyar)', src: '/music/Ek_Tera_Pyar.mp3' },
-  { id: '2', name: 'Motivation (Dream On)', src: '/music/Aerosmith - Dream On.mp3' },
-  { id: '3', name: 'Sad Vibes (Arijit Singh)', src: '/music/Arijit Singh - Main Dhoondne Ko Zamaane Mein.mp3' },
-  { id: '4', name: 'Classic Retro (Feeling Good) ', src: '/music/Michael Bubl - Feeling Good.m4a' },
-]
+import { TRACKS } from './tracks'
 
 const COMMANDS = {
   help: () => [
