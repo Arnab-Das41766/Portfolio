@@ -138,56 +138,10 @@ function useBackCardTexture(photoSrc) {
 import Desktop from './Desktop'
 import BootScreen from './BootScreen'
 
-function MobileOrientationPrompt({ onContinue }) {
-  const [step, setStep] = useState(1)
-
-  if (step === 1) {
-    return (
-      <div className="orientation-prompt">
-        <div className="orientation-icon">💻</div>
-        <h2 style={{ padding: '0 20px', textAlign: 'center' }}>Desktop Recommended</h2>
-        <p style={{ padding: '0 20px', textAlign: 'center' }}>This site is configured mainly for desktop or laptop. Please open in a desktop, laptop, etc.</p>
-        <button className="continue-btn" onClick={() => setStep(2)}>
-          CONTINUE ANYWAY
-        </button>
-      </div>
-    )
-  }
-
-  return (
-    <div className="orientation-prompt">
-      <div className="orientation-icon">🔄</div>
-      <h2 style={{ padding: '0 20px', textAlign: 'center' }}>Rotate your device</h2>
-      <p style={{ padding: '0 20px', textAlign: 'center' }}>Rotate your phone sideways for the best experience.</p>
-      <button className="continue-btn" onClick={onContinue}>
-        GOT IT
-      </button>
-    </div>
-  )
-}
-
 export default function App() {
   const [isFlipped, setIsFlipped] = useState(false)
   // Options: 'lanyard', 'booting', 'login', 'desktop'
   const [systemState, setSystemState] = useState('booting')
-  const [showOrientationPrompt, setShowOrientationPrompt] = useState(false)
-  const [ignoredPrompt, setIgnoredPrompt] = useState(false)
-
-  useEffect(() => {
-    const checkOrientation = () => {
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-      const isPortrait = window.innerHeight > window.innerWidth
-      setShowOrientationPrompt(isMobile && isPortrait && !ignoredPrompt)
-    }
-
-    checkOrientation()
-    window.addEventListener('resize', checkOrientation)
-    return () => window.removeEventListener('resize', checkOrientation)
-  }, [ignoredPrompt])
-
-  if (showOrientationPrompt) {
-    return <MobileOrientationPrompt onContinue={() => setIgnoredPrompt(true)} />
-  }
 
   if (systemState === 'booting') {
     return <BootScreen onComplete={() => setSystemState('desktop')} />

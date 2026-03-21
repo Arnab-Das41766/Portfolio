@@ -18,12 +18,13 @@ export default function NotepadApp() {
     localStorage.setItem('ubuntu-notepad-data', val);
   };
 
+
   return (
     <div style={{
       width: '100%', height: '100%', display: 'flex', flexDirection: 'column',
       backgroundColor: '#f5f5f5', color: '#111', fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif'
     }}>
-      <div style={{ 
+      <div style={{
         height: '32px', backgroundColor: '#e1e1e1', borderBottom: '1px solid #ccc',
         display: 'flex', alignItems: 'center', padding: '0 10px', gap: '15px', fontSize: '13px'
       }}>
@@ -33,7 +34,7 @@ export default function NotepadApp() {
         <span style={{ cursor: 'pointer' }}>View</span>
         <span style={{ cursor: 'pointer' }}>Help</span>
       </div>
-      
+
       <textarea
         value={text}
         onChange={handleChange}
@@ -41,12 +42,13 @@ export default function NotepadApp() {
         style={{
           flex: 1, width: '100%', padding: '10px 15px', border: 'none', outline: 'none',
           resize: 'none', backgroundColor: '#ffffff', color: '#000', fontSize: '15px',
-          lineHeight: '1.5', boxSizing: 'border-box', fontFamily: 'monospace'
+          lineHeight: '1.5', boxSizing: 'border-box', fontFamily: 'monospace',
+          userSelect: 'text', WebkitUserSelect: 'text'
         }}
         spellCheck="false"
       />
-      
-      <div style={{ 
+
+      <div style={{
         height: '24px', backgroundColor: '#f0f0f0', borderTop: '1px solid #dcdcdc',
         display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '0 15px',
         fontSize: '11px', color: '#666', gap: '20px'
