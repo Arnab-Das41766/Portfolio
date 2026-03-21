@@ -20,6 +20,12 @@ const PROJECTS = [
     description: 'A real-time geopolitical and trade risk intelligence platform powered by AI. Visualizes supply chain exposure, sanctions risk, and multi-country trade dependencies on interactive maps.',
     status: 'Deployed',
     github: 'https://github.com/Arnab-Das41766/RiskAtlas',
+    caseStudy: {
+      problem: 'Global supply chains are extremely vulnerable to complex geopolitical tensions and fluctuating sanctions, often obfuscating potential trade risks until it is too late.',
+      approach: 'Built a full-stack intelligence platform using React for geographic visualizations and a FastAPI backend empowered by the DeepSeek API to continuously analyze and interpret massive streams of geopolitical event data.',
+      result: 'An interactive, multi-layered dashboard providing predictive insights and visual mapping of supply chain dependencies across various continents.',
+      impact: 'Allows risk analysts to proactively detect hidden exposures and minimize disruption costs caused by unprecedented sanctions or political shifts.'
+    }
   },
   {
     id: 'encrive',
@@ -31,6 +37,12 @@ const PROJECTS = [
     description: 'End-to-end encrypted cloud storage where even the server never sees your data. Files are encrypted client-side before upload, using zero-knowledge architecture.',
     status: 'In Progress',
     github: 'https://github.com/Arnab-Das41766/Encrive',
+    caseStudy: {
+      problem: 'Traditional cloud storage solutions compromise user privacy by managing the encryption keys themselves, making data vulnerable to server breaches and unauthorized access.',
+      approach: 'Engineered a zero-knowledge architecture utilizing the Web Crypto API for client-side encryption using AES-256-GCM, along with Argon2id for secure local key derivation before pushing encrypted blobs to Supabase.',
+      result: 'A highly secure, intuitive file storage application where users retain exclusive control over their encryption keys, and servers only handle undecipherable ciphertexts.',
+      impact: 'Establishes absolute data privacy and security, completely eliminating the risk of data exposure through server-side compromises.'
+    }
   },
   {
     id: 'autobusbook',
@@ -42,6 +54,12 @@ const PROJECTS = [
     description: 'A full-stack intercity bus booking system with real-time seat selection, dynamic pricing, operator dashboards, and live trip tracking via geolocation.',
     status: 'Deployed',
     github: 'https://github.com/Arnab-Das41766/AutoBusBook',
+    caseStudy: {
+      problem: 'Intercity bus travelers frequently face disjointed booking experiences without reliable real-time seat selection or live tracking capabilities for their journeys.',
+      approach: 'Developed a comprehensive full-stack platform leveraging React for a responsive UI, paired with a Flask and Supabase backend incorporating WebSockets for real-time seat locking and GPS integrations.',
+      result: 'Delivered an integrated ecosystem with dynamic pricing engines, live trip tracking, and specialized admin panels for fleet operators to monitor metrics.',
+      impact: 'Streamlined the booking process, increased transparency for riders handling delays, and provided operators with actionable fleet analytics.'
+    }
   },
   {
     id: 'stockbook',
@@ -53,6 +71,12 @@ const PROJECTS = [
     description: 'A smart portfolio tracker with AI-generated market commentary, multi-stock watchlists, live price feed integration, and predictive sentiment analysis.',
     status: 'In Progress',
     github: 'https://github.com/Arnab-Das41766/Stockbook_v2',
+    caseStudy: {
+      problem: 'Retail investors struggle to contextualize volatile market movements and synthesize massive amounts of financial news to manage their portfolios efficiently.',
+      approach: 'Integrates live financial data feeds and Recharts for visual tracking with an AI backend featuring the Qwen 2.5 model via the Groq API for predictive sentiment analysis and automated commentary.',
+      result: 'A unified dashboard capable of managing multi-stock watchlists and delivering real-time, AI-driven market summaries and predictive analyses.',
+      impact: 'Empowers users to make informed, timely investment decisions backed by synthesized machine learning inferences and comprehensive data visualization.'
+    }
   },
   {
     id: 'codestrikers',
@@ -64,6 +88,12 @@ const PROJECTS = [
     description: 'A real-time competitive coding quiz platform where players duel on DSA problems. Features rooms, leaderboards, timed rounds, and instant result feedback.',
     status: 'Deployed',
     github: 'https://github.com/Arnab-Das41766/Code-Strikers',
+    caseStudy: {
+      problem: 'Practicing Data Structures and Algorithms can be an isolating and monotonous process lacking the engaging elements of peer competition.',
+      approach: 'Created a gamified, real-time battleground using React for rapid state interactions and Flask-SocketIO managed via Gevent to handle simultaneous, low-latency multiplayer rooms.',
+      result: 'A robust, scalable competitive quiz application accommodating dynamic time rounds, live leaderboards, and instant player feedback mechanisms.',
+      impact: 'Transformed solitary DSA practice into an engaging multiplayer experience, significantly boosting user retention and competitive learning outcomes.'
+    }
   },
   {
     id: 'redteamlabs',
@@ -75,6 +105,12 @@ const PROJECTS = [
     description: 'A curated collection of offensive security proof-of-concept tools — covering C2 frameworks, phishing kits, rat/spyware prototypes, and social engineering simulations. For educational & CTF use.',
     status: 'Private',
     github: 'https://github.com/Arnab-Das41766/Red-Team-Labs',
+    caseStudy: {
+      problem: 'A lack of consolidated, practical offensive security toolsets makes predicting advanced persistent threats (APTs) and developing robust defenses difficult for security teams.',
+      approach: 'Curated and developed Python-based Command & Control (C2) frameworks, advanced phishing techniques, and customized Remote Access Trojan (RAT) prototypes.',
+      result: 'An extensive repository of functional, educational proofs-of-concept that demonstrably simulate modern adversary tactics and infiltration methods.',
+      impact: 'Facilitates intensive penetration testing and red teaming operations, providing tangible methodologies to harden targeted network infrastructures.'
+    }
   },
   {
     id: 'beatclaude',
@@ -86,6 +122,12 @@ const PROJECTS = [
     description: 'A unified applications interacting with the Groq API to generate dynamic beats and musical exam patterns using LLMs.',
     status: 'Deployed',
     github: 'https://github.com/Arnab-Das41766/Beat-Claude',
+    caseStudy: {
+      problem: 'Music creators and educators need rapid, innovative, to easily scaffold new rhythmic patterns or generate complex musical exam materials on the fly.',
+      approach: 'Designed a React application interfacing seamlessly with the high-speed Groq API to process natural language prompts into structural rhythmic patterns and test parameters.',
+      result: 'A versatile generator that instantly outputs customized musical beats and formatted examination architectures suitable for varying skill levels.',
+      impact: 'Drastically reduces the time required for creative brainstorming and educational material preparation, fostering efficiency for musicians and teachers.'
+    }
   },
   {
     id: 'riskyurl',
@@ -97,11 +139,17 @@ const PROJECTS = [
     description: 'A machine learning powered platform designed to detect and flag malicious URLs preventing users from falling victim to phishing and scams.',
     status: 'Deployed',
     github: 'https://github.com/Arnab-Das41766/RiskyURL',
-  },
+    caseStudy: {
+      problem: 'Cybercriminals continuously launch highly evasive phishing and scam URLs, outpacing traditional blocklist methods and endangering standard users.',
+      approach: 'Engineered a specialized Python and Flask platform embedding customized machine learning models trained specifically on identifying obscure patterns inside fraudulent web addresses.',
+      result: 'A rapid, user-facing detection tool effectively calculating risk percentages and flagging potentially malicious URLs based on lexical and domain heuristics.',
+      impact: 'Serves as an active frontline defense, significantly diminishing the chances of non-technical users compromising their sensitive data via social engineering links.'
+    }
+  }
 ]
 
 // --- Projects File Explorer ---
-function ProjectsExplorer() {
+function ProjectsExplorer({ onOpenCaseStudy }) {
   const [selected, setSelected] = useState(null)
 
   return (
@@ -176,12 +224,22 @@ function ProjectsExplorer() {
                   ))}
                 </div>
               </div>
-              <a href={selected.github} target="_blank" rel="noreferrer" style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '8px', backgroundColor: '#2a2a2a', color: '#fff', borderRadius: '6px', textDecoration: 'none', fontSize: '13px', fontWeight: '600', transition: 'background 0.15s' }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = '#333'}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = '#2a2a2a'}
-              >
-                <span>🐙</span> GitHub
-              </a>
+              <div style={{ marginTop: 'auto', display: 'flex', gap: '8px' }}>
+                <a href={selected.github} target="_blank" rel="noreferrer" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '8px', backgroundColor: '#2a2a2a', color: '#fff', borderRadius: '6px', textDecoration: 'none', fontSize: '13px', fontWeight: '600', transition: 'background 0.15s' }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = '#333'}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = '#2a2a2a'}
+                >
+                  <span>🐙</span> GitHub
+                </a>
+                <button
+                  onClick={() => onOpenCaseStudy && onOpenCaseStudy(selected)}
+                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '8px', backgroundColor: '#e95420', color: '#fff', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600', transition: 'background 0.15s', height: '100%' }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = '#dd4814'}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = '#e95420'}
+                >
+                  <span>📘</span> Case Study
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -268,9 +326,10 @@ export default function Desktop({ onExit }) {
   const [time, setTime] = useState(new Date())
 
   // App States
-  const [openApps, setOpenApps] = useState({ projects: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
+  const [openApps, setOpenApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
   const [activeApp, setActiveApp] = useState(null)
-  const [maximizedApps, setMaximizedApps] = useState({ projects: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
+  const [maximizedApps, setMaximizedApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
+  const [activeCaseStudyProject, setActiveCaseStudyProject] = useState(null)
   const [linkedinConfirmed, setLinkedinConfirmed] = useState(false)
   const [githubConfirmed, setGithubConfirmed] = useState(false)
   const [whatsappConfirmed, setWhatsappConfirmed] = useState(false)
@@ -543,7 +602,76 @@ export default function Desktop({ onExit }) {
               isMaximized={maximizedApps.projects} onToggleMaximize={() => toggleMaximize('projects')}
               defaultPos={{ x: 150, y: 80 }}
             >
-              <ProjectsExplorer />
+              <ProjectsExplorer
+                onOpenCaseStudy={(proj) => {
+                  setActiveCaseStudyProject(proj);
+                  if (!openApps.casestudy) {
+                    toggleApp('casestudy');
+                  } else {
+                    focusApp('casestudy');
+                  }
+                }}
+              />
+            </Window>
+          )}
+
+          {openApps.casestudy && activeCaseStudyProject && (
+            <Window
+              id="casestudy" title={`Case Study: ${activeCaseStudyProject.name}`}
+              onClose={() => toggleApp('casestudy')}
+              isActive={activeApp === 'casestudy'} onFocus={() => focusApp('casestudy')}
+              isMaximized={maximizedApps.casestudy} onToggleMaximize={() => toggleMaximize('casestudy')}
+              defaultPos={{ x: 200, y: 100 }}
+            >
+              <div className="casestudy-content" style={{ padding: '24px', overflowY: 'auto', height: '100%', backgroundColor: '#1e1e1e', color: '#eee', fontFamily: '"Inter", "Segoe UI", sans-serif', boxSizing: 'border-box' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px', borderBottom: '1px solid #333', paddingBottom: '16px' }}>
+                  <div style={{ fontSize: '48px', backgroundColor: activeCaseStudyProject.color + '22', border: `2px solid ${activeCaseStudyProject.color}55`, borderRadius: '12px', width: '80px', height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center', boxShadow: `0 0 20px ${activeCaseStudyProject.color}44`, flexShrink: 0 }}>
+                    {activeCaseStudyProject.icon}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#fff', letterSpacing: '-0.5px' }}>{activeCaseStudyProject.name}</div>
+                    <div style={{ fontSize: '15px', color: activeCaseStudyProject.color, fontWeight: '600', marginTop: '4px' }}>{activeCaseStudyProject.tagline}</div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '20px' }}>
+                  <section>
+                    <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: '#ff5f56' }}>🔴</span> Problem
+                    </h3>
+                    <p style={{ margin: 0, fontSize: '14.5px', lineHeight: '1.6', color: '#ccc' }}>
+                      {activeCaseStudyProject.caseStudy.problem}
+                    </p>
+                  </section>
+                  
+                  <section>
+                    <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: '#ffbd2e' }}>🟡</span> Approach
+                    </h3>
+                    <p style={{ margin: 0, fontSize: '14.5px', lineHeight: '1.6', color: '#ccc' }}>
+                      {activeCaseStudyProject.caseStudy.approach}
+                    </p>
+                  </section>
+
+                  <section>
+                    <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: '#28c940' }}>🟢</span> Result
+                    </h3>
+                    <p style={{ margin: 0, fontSize: '14.5px', lineHeight: '1.6', color: '#ccc' }}>
+                      {activeCaseStudyProject.caseStudy.result}
+                    </p>
+                  </section>
+
+                  <section>
+                    <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: '#4daafc' }}>🔵</span> Impact
+                    </h3>
+                    <p style={{ margin: 0, fontSize: '14.5px', lineHeight: '1.6', color: '#ccc' }}>
+                      {activeCaseStudyProject.caseStudy.impact}
+                    </p>
+                  </section>
+                </div>
+              </div>
             </Window>
           )}
 
