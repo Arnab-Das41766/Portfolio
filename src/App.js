@@ -135,17 +135,32 @@ function useBackCardTexture(photoSrc) {
   return texture
 }
 
-// ── App ───────────────────────────────────────────────────────────────────────
 import Desktop from './Desktop'
+import BootScreen from './BootScreen'
 
 function MobileOrientationPrompt({ onContinue }) {
+  const [step, setStep] = useState(1)
+
+  if (step === 1) {
+    return (
+      <div className="orientation-prompt">
+        <div className="orientation-icon">💻</div>
+        <h2 style={{ padding: '0 20px', textAlign: 'center' }}>Desktop Recommended</h2>
+        <p style={{ padding: '0 20px', textAlign: 'center' }}>This site is configured mainly for desktop or laptop. Please open in a desktop, laptop, etc.</p>
+        <button className="continue-btn" onClick={() => setStep(2)}>
+          CONTINUE ANYWAY
+        </button>
+      </div>
+    )
+  }
+
   return (
     <div className="orientation-prompt">
-      <div className="orientation-icon">📱</div>
-      <h2>Rotate your device</h2>
-      <p>Please switch to landscape mode for the best experience with the 3D lanyard and terminal.</p>
+      <div className="orientation-icon">🔄</div>
+      <h2 style={{ padding: '0 20px', textAlign: 'center' }}>Rotate your device</h2>
+      <p style={{ padding: '0 20px', textAlign: 'center' }}>Rotate your phone sideways for the best experience.</p>
       <button className="continue-btn" onClick={onContinue}>
-        CONTINUE ANYWAY
+        GOT IT
       </button>
     </div>
   )
@@ -153,7 +168,8 @@ function MobileOrientationPrompt({ onContinue }) {
 
 export default function App() {
   const [isFlipped, setIsFlipped] = useState(false)
-  const [desktopMode, setDesktopMode] = useState(true)
+  // Options: 'lanyard', 'booting', 'login', 'desktop'
+  const [systemState, setSystemState] = useState('booting')
   const [showOrientationPrompt, setShowOrientationPrompt] = useState(false)
   const [ignoredPrompt, setIgnoredPrompt] = useState(false)
 
@@ -173,8 +189,12 @@ export default function App() {
     return <MobileOrientationPrompt onContinue={() => setIgnoredPrompt(true)} />
   }
 
-  if (desktopMode) {
-    return <Desktop onExit={() => setDesktopMode(false)} />
+  if (systemState === 'booting') {
+    return <BootScreen onComplete={() => setSystemState('desktop')} />
+  }
+
+  if (systemState === 'desktop') {
+    return <Desktop onExit={() => setSystemState('lanyard')} />
   }
 
   return (
@@ -212,7 +232,7 @@ export default function App() {
           </button>
           <span className="lanyard-hint">drag the badge ↑</span>
         </div>
-        <Terminal onDesktopSwitch={() => setDesktopMode(true)} />
+        <Terminal onDesktopSwitch={() => setSystemState('booting')} />
       </div>
     </div>
   )

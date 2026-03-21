@@ -9,8 +9,9 @@ import ContactApp from './ContactApp'
 import CertificationsApp from './CertificationsApp'
 import AkinatorApp from './AkinatorApp'
 import TypingTesterApp from './TypingTesterApp'
-import NotepadApp from './NotepadApp'
 import SettingsApp from './SettingsApp'
+import WeatherApp from './WeatherApp'
+import CalendarWidget from './CalendarWidget'
 
 // --- Projects Data ---
 const PROJECTS = [
@@ -330,11 +331,12 @@ export default function Desktop({ onExit }) {
   const [time, setTime] = useState(new Date())
 
   // App States
-  const [openApps, setOpenApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false, typing: false, notepad: false, settings: false })
+  const [openApps, setOpenApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false, typing: false, notepad: false, settings: false, weather: false })
   const [activeApp, setActiveApp] = useState(null)
-  const [maximizedApps, setMaximizedApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false, typing: false, notepad: false, settings: false })
+  const [maximizedApps, setMaximizedApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false, typing: false, notepad: false, settings: false, weather: false })
   const [wallpaper, setWallpaper] = useState(() => localStorage.getItem('ubuntu-wallpaper') || 'linear-gradient(135deg, #E95420, #77216F)')
   const [accentColor, setAccentColor] = useState(() => localStorage.getItem('ubuntu-accent-color') || '#e95420')
+  const [showCalendarWidget, setShowCalendarWidget] = useState(false)
   const [activeCaseStudyProject, setActiveCaseStudyProject] = useState(null)
   const [linkedinConfirmed, setLinkedinConfirmed] = useState(false)
   const [githubConfirmed, setGithubConfirmed] = useState(false)
@@ -410,9 +412,8 @@ export default function Desktop({ onExit }) {
             <span style={{ fontWeight: 'bold' }}>Activities</span>
           </div>
 
-          <div style={{ fontWeight: '500', cursor: 'pointer' }}>
-            {time.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}&nbsp;&nbsp;
-            {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', cursor: 'pointer', padding: '0 10px' }} onClick={() => setShowCalendarWidget(!showCalendarWidget)}>
+            {time.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
           </div>
 
           <div style={{ display: 'flex', gap: '15px', cursor: 'pointer' }}>
@@ -421,6 +422,9 @@ export default function Desktop({ onExit }) {
             <span title="Power Off" onClick={onExit} style={{ color: '#ff5f56', transition: 'transform 0.2s' }} onMouseEnter={e => e.target.style.transform = 'scale(1.2)'} onMouseLeave={e => e.target.style.transform = 'scale(1)'}>⏻</span>
           </div>
         </div>
+        
+        {/* Calendar Widget Dropdown */}
+        {showCalendarWidget && <CalendarWidget currentDate={time} />}
 
         {/* Ubuntu Dock (Sidebar / Bottom bar on mobile) */}
         <div className="ubuntu-dock" style={{
@@ -506,6 +510,11 @@ export default function Desktop({ onExit }) {
           <div className="dock-icon" onClick={() => toggleApp('settings')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'settings') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Settings">
             {openApps.settings && <div className="dock-active-dot" />}
             <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>⚙️</span>
+          </div>
+
+          <div className="dock-icon" onClick={() => toggleApp('weather')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'weather') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Weather">
+            {openApps.weather && <div className="dock-active-dot" />}
+            <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>🌤️</span>
           </div>
         </div>
 
@@ -655,6 +664,15 @@ export default function Desktop({ onExit }) {
           }}>
             <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>📝</span>
             <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Notepad</span>
+          </div>
+
+          <div className="desktop-icon" onClick={() => toggleApp('weather')} style={{
+            width: '85px', height: '85px', display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            borderRadius: '8px', padding: '5px'
+          }}>
+            <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>🌤️</span>
+            <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Weather</span>
           </div>
 
           {/* Render Active Windows */}
@@ -991,12 +1009,23 @@ export default function Desktop({ onExit }) {
               onClose={() => toggleApp('notepad')}
               isActive={activeApp === 'notepad'} onFocus={() => focusApp('notepad')}
               isMaximized={maximizedApps.notepad} onToggleMaximize={() => toggleMaximize('notepad')}
-              defaultPos={{ x: 280, y: 180 }}
+              defaultPos={{ x: 260, y: 150 }}
             >
               <NotepadApp />
             </Window>
           )}
 
+          {openApps.weather && (
+            <Window
+              id="weather" title="🌤️ Weather"
+              onClose={() => toggleApp('weather')}
+              isActive={activeApp === 'weather'} onFocus={() => focusApp('weather')}
+              isMaximized={maximizedApps.weather} onToggleMaximize={() => toggleMaximize('weather')}
+              defaultPos={{ x: 150, y: 100 }}
+            >
+              <WeatherApp />
+            </Window>
+          )}
         </div>
       </div>
     </>
