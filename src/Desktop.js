@@ -10,6 +10,7 @@ import CertificationsApp from './CertificationsApp'
 import AkinatorApp from './AkinatorApp'
 import TypingTesterApp from './TypingTesterApp'
 import NotepadApp from './NotepadApp'
+import SettingsApp from './SettingsApp'
 
 // --- Projects Data ---
 const PROJECTS = [
@@ -329,9 +330,11 @@ export default function Desktop({ onExit }) {
   const [time, setTime] = useState(new Date())
 
   // App States
-  const [openApps, setOpenApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false, typing: false, notepad: false })
+  const [openApps, setOpenApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false, typing: false, notepad: false, settings: false })
   const [activeApp, setActiveApp] = useState(null)
-  const [maximizedApps, setMaximizedApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false, typing: false, notepad: false })
+  const [maximizedApps, setMaximizedApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false, typing: false, notepad: false, settings: false })
+  const [wallpaper, setWallpaper] = useState(() => localStorage.getItem('ubuntu-wallpaper') || 'linear-gradient(135deg, #E95420, #77216F)')
+  const [accentColor, setAccentColor] = useState(() => localStorage.getItem('ubuntu-accent-color') || '#e95420')
   const [activeCaseStudyProject, setActiveCaseStudyProject] = useState(null)
   const [linkedinConfirmed, setLinkedinConfirmed] = useState(false)
   const [githubConfirmed, setGithubConfirmed] = useState(false)
@@ -372,7 +375,8 @@ export default function Desktop({ onExit }) {
         .desktop-icon { border: 1px solid transparent; transition: all 0.2s ease; }
         .dock-icon { transition: transform 0.2s; }
         .dock-icon:hover { transform: scale(1.1); background-color: rgba(255,255,255,0.2); }
-        .dock-active-dot { width: 4px; height: 4px; background-color: #e95420; border-radius: 50%; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); }
+        /* Dock Active Dot using Dynamic Accent Color */
+        .dock-active-dot { width: 4px; height: 4px; background-color: ${accentColor}; border-radius: 50%; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); }
         .ubuntu-dock { flex-direction: column !important; width: 70px !important; padding: 12px 8px !important; }
         .ubuntu-window { position: absolute; width: 600px; height: 400px; min-width: 300px; min-height: 200px; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.5); resize: both; }
         .ubuntu-window.maximized { position: fixed; top: 28px; left: 70px; right: 0; bottom: 0; width: calc(100% - 70px) !important; height: calc(100vh - 28px) !important; border-radius: 0; margin: 0; transform: none !important; resize: none; }
@@ -380,13 +384,14 @@ export default function Desktop({ onExit }) {
       <div style={{
         position: 'fixed', top: 0, left: 0,
         width: '100vw', height: '100vh',
-        background: 'linear-gradient(135deg, #E95420, #77216F)',
+        background: wallpaper,
         backgroundSize: 'cover',
         display: 'flex', flexDirection: 'column',
         fontFamily: '"Ubuntu", "Segoe UI", sans-serif',
         overflow: 'hidden',
         color: '#fff',
-        zIndex: 999999
+        zIndex: 999999,
+        transition: 'background 0.3s ease-in-out'
       }}>
         {showScrollHint && (
           <div className="scroll-hint-popup">
@@ -496,6 +501,11 @@ export default function Desktop({ onExit }) {
           <div className="dock-icon" onClick={() => toggleApp('notepad')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'notepad') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Notepad">
             {openApps.notepad && <div className="dock-active-dot" />}
             <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>📝</span>
+          </div>
+
+          <div className="dock-icon" onClick={() => toggleApp('settings')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'settings') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Settings">
+            {openApps.settings && <div className="dock-active-dot" />}
+            <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>⚙️</span>
           </div>
         </div>
 
@@ -627,6 +637,15 @@ export default function Desktop({ onExit }) {
           }}>
             <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>⌨️</span>
             <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Typing Tester</span>
+          </div>
+
+          <div className="desktop-icon" onClick={() => toggleApp('settings')} style={{
+            width: '85px', height: '85px', display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            borderRadius: '8px', padding: '5px'
+          }}>
+            <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>⚙️</span>
+            <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Settings</span>
           </div>
 
           <div className="desktop-icon" onClick={() => toggleApp('notepad')} style={{
@@ -946,6 +965,23 @@ export default function Desktop({ onExit }) {
               defaultPos={{ x: 350, y: 120 }}
             >
               <TypingTesterApp />
+            </Window>
+          )}
+
+          {openApps.settings && (
+            <Window
+              id="settings" title="⚙️ System Settings"
+              onClose={() => toggleApp('settings')}
+              isActive={activeApp === 'settings'} onFocus={() => focusApp('settings')}
+              isMaximized={maximizedApps.settings} onToggleMaximize={() => toggleMaximize('settings')}
+              defaultPos={{ x: 260, y: 100 }}
+            >
+              <SettingsApp 
+                currentWallpaper={wallpaper} 
+                setWallpaper={setWallpaper} 
+                currentAccentColor={accentColor} 
+                setAccentColor={setAccentColor} 
+              />
             </Window>
           )}
 
