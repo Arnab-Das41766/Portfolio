@@ -8,6 +8,8 @@ import ArnabBot from './ArnabBot'
 import ContactApp from './ContactApp'
 import CertificationsApp from './CertificationsApp'
 import AkinatorApp from './AkinatorApp'
+import TypingTesterApp from './TypingTesterApp'
+import NotepadApp from './NotepadApp'
 
 // --- Projects Data ---
 const PROJECTS = [
@@ -283,7 +285,7 @@ function Window({ id, title, onClose, isActive, onFocus, isMaximized, onToggleMa
     zIndex: isActive ? 100 : 50,
   } : {
     transform: `translate(${pos.x}px, ${pos.y}px)`,
-    zIndex: isActive ? 100 : 50, transition: 'transform 0.15s, width 0.15s, height 0.15s',
+    zIndex: isActive ? 100 : 50, transition: 'transform 0.15s, box-shadow 0.15s',
     boxShadow: isActive ? '0 15px 50px rgba(0,0,0,0.8)' : '0 10px 30px rgba(0,0,0,0.5)',
   }
 
@@ -327,9 +329,9 @@ export default function Desktop({ onExit }) {
   const [time, setTime] = useState(new Date())
 
   // App States
-  const [openApps, setOpenApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false })
+  const [openApps, setOpenApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false, typing: false, notepad: false })
   const [activeApp, setActiveApp] = useState(null)
-  const [maximizedApps, setMaximizedApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false })
+  const [maximizedApps, setMaximizedApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false, typing: false, notepad: false })
   const [activeCaseStudyProject, setActiveCaseStudyProject] = useState(null)
   const [linkedinConfirmed, setLinkedinConfirmed] = useState(false)
   const [githubConfirmed, setGithubConfirmed] = useState(false)
@@ -372,8 +374,8 @@ export default function Desktop({ onExit }) {
         .dock-icon:hover { transform: scale(1.1); background-color: rgba(255,255,255,0.2); }
         .dock-active-dot { width: 4px; height: 4px; background-color: #e95420; border-radius: 50%; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); }
         .ubuntu-dock { flex-direction: column !important; width: 70px !important; padding: 12px 8px !important; }
-        .ubuntu-window { position: absolute; width: 600px; height: 400px; min-width: 300px; min-height: 200px; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .ubuntu-window.maximized { position: fixed; top: 28px; left: 70px; right: 0; bottom: 0; width: calc(100% - 70px) !important; height: calc(100vh - 28px) !important; border-radius: 0; margin: 0; transform: none !important; }
+        .ubuntu-window { position: absolute; width: 600px; height: 400px; min-width: 300px; min-height: 200px; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.5); resize: both; }
+        .ubuntu-window.maximized { position: fixed; top: 28px; left: 70px; right: 0; bottom: 0; width: calc(100% - 70px) !important; height: calc(100vh - 28px) !important; border-radius: 0; margin: 0; transform: none !important; resize: none; }
       `}</style>
       <div style={{
         position: 'fixed', top: 0, left: 0,
@@ -484,6 +486,16 @@ export default function Desktop({ onExit }) {
           <div className="dock-icon" onClick={() => toggleApp('akinator')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'akinator') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="AI Akinator">
             {openApps.akinator && <div className="dock-active-dot" />}
             <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>🧞‍♂️</span>
+          </div>
+
+          <div className="dock-icon" onClick={() => toggleApp('typing')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'typing') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Typing Tester">
+            {openApps.typing && <div className="dock-active-dot" />}
+            <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>⌨️</span>
+          </div>
+
+          <div className="dock-icon" onClick={() => toggleApp('notepad')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'notepad') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="Notepad">
+            {openApps.notepad && <div className="dock-active-dot" />}
+            <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>📝</span>
           </div>
         </div>
 
@@ -606,6 +618,24 @@ export default function Desktop({ onExit }) {
           }}>
             <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>🧞‍♂️</span>
             <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Akinator</span>
+          </div>
+
+          <div className="desktop-icon" onClick={() => toggleApp('typing')} style={{
+            width: '85px', height: '85px', display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            borderRadius: '8px', padding: '5px'
+          }}>
+            <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>⌨️</span>
+            <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Typing Tester</span>
+          </div>
+
+          <div className="desktop-icon" onClick={() => toggleApp('notepad')} style={{
+            width: '85px', height: '85px', display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            borderRadius: '8px', padding: '5px'
+          }}>
+            <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>📝</span>
+            <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Notepad</span>
           </div>
 
           {/* Render Active Windows */}
@@ -904,6 +934,30 @@ export default function Desktop({ onExit }) {
               defaultPos={{ x: 400, y: 150 }}
             >
               <AkinatorApp />
+            </Window>
+          )}
+
+          {openApps.typing && (
+            <Window
+              id="typing" title="⌨️ Keyword Typist"
+              onClose={() => toggleApp('typing')}
+              isActive={activeApp === 'typing'} onFocus={() => focusApp('typing')}
+              isMaximized={maximizedApps.typing} onToggleMaximize={() => toggleMaximize('typing')}
+              defaultPos={{ x: 350, y: 120 }}
+            >
+              <TypingTesterApp />
+            </Window>
+          )}
+
+          {openApps.notepad && (
+            <Window
+              id="notepad" title="📝 Notepad"
+              onClose={() => toggleApp('notepad')}
+              isActive={activeApp === 'notepad'} onFocus={() => focusApp('notepad')}
+              isMaximized={maximizedApps.notepad} onToggleMaximize={() => toggleMaximize('notepad')}
+              defaultPos={{ x: 280, y: 180 }}
+            >
+              <NotepadApp />
             </Window>
           )}
 
