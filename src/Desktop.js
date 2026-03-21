@@ -7,6 +7,7 @@ import Camera from './Camera'
 import ArnabBot from './ArnabBot'
 import ContactApp from './ContactApp'
 import CertificationsApp from './CertificationsApp'
+import AkinatorApp from './AkinatorApp'
 
 // --- Projects Data ---
 const PROJECTS = [
@@ -326,9 +327,9 @@ export default function Desktop({ onExit }) {
   const [time, setTime] = useState(new Date())
 
   // App States
-  const [openApps, setOpenApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
+  const [openApps, setOpenApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false })
   const [activeApp, setActiveApp] = useState(null)
-  const [maximizedApps, setMaximizedApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false })
+  const [maximizedApps, setMaximizedApps] = useState({ projects: false, casestudy: false, resume: false, certifications: false, terminal: false, music: false, calculator: false, camera: false, linkedin: false, github: false, whatsapp: false, arnabbot: false, contact: false, akinator: false })
   const [activeCaseStudyProject, setActiveCaseStudyProject] = useState(null)
   const [linkedinConfirmed, setLinkedinConfirmed] = useState(false)
   const [githubConfirmed, setGithubConfirmed] = useState(false)
@@ -479,6 +480,11 @@ export default function Desktop({ onExit }) {
             {openApps.contact && <div className="dock-active-dot" />}
             <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>📬</span>
           </div>
+
+          <div className="dock-icon" onClick={() => toggleApp('akinator')} style={{ width: '42px', height: '42px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (activeApp === 'akinator') ? 'rgba(255,255,255,0.15)' : 'transparent', borderRadius: '10px', position: 'relative' }} title="AI Akinator">
+            {openApps.akinator && <div className="dock-active-dot" />}
+            <span style={{ fontSize: '26px', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.4))' }}>🧞‍♂️</span>
+          </div>
         </div>
 
         {/* Desktop Workspace */}
@@ -591,6 +597,15 @@ export default function Desktop({ onExit }) {
           }}>
             <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>📬</span>
             <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Contact</span>
+          </div>
+
+          <div className="desktop-icon" onClick={() => toggleApp('akinator')} style={{
+            width: '85px', height: '85px', display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            borderRadius: '8px', padding: '5px'
+          }}>
+            <span style={{ fontSize: '42px', filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>🧞‍♂️</span>
+            <span style={{ fontSize: '13px', marginTop: '6px', textShadow: '1px 1px 2px #000', textAlign: 'center', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>Akinator</span>
           </div>
 
           {/* Render Active Windows */}
@@ -877,6 +892,18 @@ export default function Desktop({ onExit }) {
               defaultPos={{ x: 320, y: 140 }}
             >
               <ContactApp />
+            </Window>
+          )}
+
+          {openApps.akinator && (
+            <Window
+              id="akinator" title="🧞‍♂️ AI Akinator"
+              onClose={() => toggleApp('akinator')}
+              isActive={activeApp === 'akinator'} onFocus={() => focusApp('akinator')}
+              isMaximized={maximizedApps.akinator} onToggleMaximize={() => toggleMaximize('akinator')}
+              defaultPos={{ x: 400, y: 150 }}
+            >
+              <AkinatorApp />
             </Window>
           )}
 
