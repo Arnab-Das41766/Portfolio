@@ -5,7 +5,7 @@ import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier'
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline'
 import Terminal from './Terminal'
-import lanyardPhoto from './front.jpg'
+import lanyardPhoto from './lanyardbackphoto.jpeg'
 import lanyardBackPhoto from './lanyardbackphoto.jpeg'
 
 extend({ MeshLineGeometry, MeshLineMaterial })
