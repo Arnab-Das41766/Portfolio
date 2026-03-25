@@ -12,6 +12,7 @@ import TypingTesterApp from './TypingTesterApp'
 import SettingsApp from './SettingsApp'
 import WeatherApp from './WeatherApp'
 import CalendarWidget from './CalendarWidget'
+import NotepadApp from './NotepadApp'
 
 // --- Projects Data ---
 const PROJECTS = [
